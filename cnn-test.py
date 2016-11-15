@@ -11,7 +11,8 @@ import random
   
 import theano  
 import theano.tensor as T  
-from theano.tensor.signal import downsample  
+#from theano.tensor.signal import downsample  
+from theano.tensor.signal.pool import downsample  
 from theano.tensor.nnet import conv  
 
 
