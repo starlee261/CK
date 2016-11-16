@@ -13,7 +13,7 @@ def load_data(dataset):
     data = np.empty((2960,1,64,64),dtype="float32")
     label = np.empty((2960,),dtype="uint8")
     read_file=open(dataset,'rb')  
-    faces=cPickle.load(read_file)    #faces:2960*64*64
+    faces=cPickle.load(read_file)    #faces:2960*(64*64)
     labels=cPickle.load(read_file)    
     read_file.close()   
     label=labels
@@ -72,4 +72,4 @@ if __name__ == "__main__":
     #train svm using FC-layer feature
     scaler = MinMaxScaler()
     feature = scaler.fit_transform(feature)
-    svc(feature[0:1776],label[0:1776],feature[1776:],label[1776:])
+    rf(feature[0:1776],label[0:1776],feature[1776:],label[1776:])
