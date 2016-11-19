@@ -74,8 +74,8 @@ def create_model():
 ##############
 model = create_model()
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-model.compile(loss='categorical_crossentropy', optimizer=sgd)
-metrics=['accuracy']
+model.compile(loss='categorical_crossentropy', optimizer=sgd,metrics=['accuracy'])
+
 
 index = [i for i in range(len(data))]
 random.shuffle(index)
@@ -87,5 +87,12 @@ label = label[index]
 #使用early stopping返回最佳epoch对应的model
 early_stopping = EarlyStopping(monitor='val_loss', patience=1)
 model.fit(X_train, Y_train, batch_size=50,validation_data=(X_val, Y_val),nb_epoch=10,callbacks=[early_stopping])
-cPickle.dump(model,open("D:\\CK\\model.pkl","wb"))
 
+#输出loss和acc信息
+# hist = model.fit(X_train, Y_train, batch_size=50,validation_data=(X_val, Y_val),nb_epoch=10,callbacks=[early_stopping])
+# print (hist.history)
+
+eva = model.evaluate( data, label , batch_size=32, verbose=1, sample_weight=None)
+print (eva)
+
+#cPickle.dump(model,open("D:\\CK\\model.pkl","wb"))
